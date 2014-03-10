@@ -1,0 +1,141 @@
+//Render Engine
+	var WIDTH = 700;
+	var HEIGHT = 300;
+	var stage = new PIXI.Stage(0xEEFFFF);
+	var renderer = PIXI.autoDetectRenderer(WIDTH, HEIGHT);
+	document.body.appendChild(renderer.view);
+
+	//var loader = new PIXI.AssetLoader(['images/roadTiles.json']);
+
+	var assetsToLoader = [ "images/roadTiles.json"];
+	
+	// create a new loader
+	loader = new PIXI.AssetLoader(assetsToLoader);
+	
+	// use callback
+	//loader.onComplete = onAssetsLoaded;
+	
+	//begin load
+	//loader.load();
+
+	//function onAssetsLoaded()
+	//{
+		// map
+		var G = 0,
+		  D = 1,
+		  W = 2;
+		var terrain = [
+		  [D, D, D, D, D, W, W, W, D, D],
+		  [D, D, D, D, D, W, W, W, D, D],//,  ,  ,  , D, D, D, D, D],
+		  [D, D, D, D, D, D, D, D, D, D],
+		  [D, D, D, D, D, W, W, W, D, D],//,  ,  ,  , D, D, D, D, D],
+		  [D, D, D, D, D, W, W, W, D, D],//,  ,  ,  , D, D, D, D, D],
+		];
+
+		// Tiles with height can exceed these dimensions.
+		var tileHeight = 50;
+		var tileWidth = 50;
+
+		// tiles
+		var grass = isoTile("grass.png");
+		var dirt = isoTile("dirt.png");
+		var water = isoTile("water.png");
+		var sand = isoTile("beach.png");
+		
+		var tileMethods = [grass, dirt, water, sand];
+
+		function isoTile(filename) {
+		  return function(x, y) {
+			var tile = PIXI.Sprite.fromFrame(filename);
+			tile.position.x = x;
+			tile.position.y = y;
+
+			// bottom-left
+			tile.anchor.x = 0;
+			tile.anchor.y = 1;
+			stage.addChild(tile);
+		  }
+		}
+
+		function drawMap(terrain, xOffset, yOffset) {
+		  var tileType, x, y, isoX, isoY, idx;
+
+		  for (var i = 0, iL = terrain.length; i < iL; i++) {
+			for (var j = 0, jL = terrain[i].length; j < jL; j++) {
+			  // cartesian 2D coordinate
+			  x = j * tileWidth;
+			  y = i * tileHeight;
+
+			  // iso coordinate
+			  isoX = x - y;
+			  isoY = (x + y) / 2;
+
+			  tileType = terrain[i][j];
+			  drawTile = tileMethods[tileType];
+			  drawTile(isoX + xOffset, isoY + yOffset);
+			}
+		  }
+		}
+		
+		function createPlayer(x, y) {
+		  var player = PIXI.Sprite.fromImage('images/bunny.png');
+
+		  // track 2D position
+		  player.location = new PIXI.Point(x, y);
+
+		  var point = coords.ddToAvatar(x, y);
+		  player.position.x = point.x;
+		  player.position.y = point.y;
+		  player.anchor.x = 0;
+		  player.anchor.y = 1;
+
+		  stage.addChild(player);
+		  return player;
+		}
+		
+		// Converts 2D coordinates to tile coordinates taking into
+		// account anchor placement and thickness of tile
+		function ddToTile(x, y) {
+		  var iso = ddToIso(x, y);
+		  return {
+			x: iso.x + SKEW_X_OFFSET + TILE_WIDTH,
+			y: iso.y + SKEW_Y_OFFSET - TILE_WIDTH - THICKNESS
+		  };
+		}
+
+		// Offset a 2D point keeping the point within the boundaries
+		// of the map.
+		function ddOffset(pt, byX, byY) {
+		  pt.x = Math.max(0, Math.min(pt.x + byX, MAP_WIDTH));
+		  pt.y = Math.max(0, Math.min(pt.y + byY, MAP_HEIGHT));
+		}
+
+		// Avatars avatar have depth
+		function ddToAvatar(x, y) {
+		  x = Math.min(MAP_WIDTH - 10, Math.max(0, x));
+		  y = Math.min(MAP_HEIGHT - 10, Math.max(0, y));
+
+		  var tile = ddToTile(x, y);
+		  x = tile.x - AVATAR_WIDTH / 2; // 32 width
+		  y = tile.y + AVATAR_HEIGHT - 6; // 32 height + ?px shadow
+
+		  return {
+			x: x,
+			y: y
+		  };
+		}
+
+		loader.onComplete = start;
+		loader.load();
+
+		function start() {
+		  drawMap(terrain, WIDTH / 2, tileHeight * 1.5);
+
+		  function animate() {
+			requestAnimFrame(animate);
+			renderer.render(stage);
+		  }
+		  requestAnimFrame(animate);
+		}
+	//}
+	//var player = null;

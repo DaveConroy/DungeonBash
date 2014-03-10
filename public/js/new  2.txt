@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+	<script type="text/javascript" src="client.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="pixi.js"></script>	
+	<!-- <script type="text/javascript" src="socket.io.js"></script> -->
+	<!-- <script src="ws://daveconroy-dungeongame.rhcloud.com:8000/socket.io/socket.io.js"></script> -->
+		<!-- <script src="daveconroy-dungeongame.rhcloud.com:8000/socket.io/socket.io.js"></script> -->
+		<!-- <script src="http://daveconroy-dungeongame.rhcloud.com:8000/socket.io/socket.io.js"></script> -->
+	<!--<script type="text/javascript" src="http://jqueryjs.googlecode.com/files/jquery-1.2.6.min.js"></script>-->
+	<link rel="stylesheet" type="text/css" href="styles.css" />
+
+
+  <title>Dungeon Bash</title>
+</head>
+<body bgcolor="#E6E6FA" onload="onLoadHandler()">
+  <h1>
+    Final Year Project
+  </h1>
+	<article></article>
+	
+	<input type="text" id="message_input"/>
+	<button id="send" onclick="sendMessage()">send</button>
+	<div id="chatlog"></div>
+	
+
+<!-- <script> -->
+	  <!-- var socket = io.connect('ws://daveconroy-dungeongame.rhcloud.com:8080'); -->
+	  <!-- socket.on('news', function (data) { -->
+		<!-- console.log(data); -->
+		<!-- socket.emit('my other event', { my: 'data' }); -->
+	  <!-- }); -->
+</script>
+</body>
+</html>
