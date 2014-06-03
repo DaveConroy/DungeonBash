@@ -1,22 +1,24 @@
 {
-  "name": "OpenShift-Sample-App",
+  "name": "Dungeon-Bash",
   "version": "1.0.0",
-  "description": "OpenShift Sample Application",
+  "description": "A online multiplayer game featuring websockets deployable to Openshift",
   "keywords": [
     "OpenShift",
     "Node.js",
     "application",
+    "websockets",
+    "socketio",
     "openshift"
   ],
   "author": {
-    "name": "OpenShift",
-    "email": "ramr@example.org",
-    "url":  "http://www.openshift.com/"
+    "name": "David Conroy",
+    "email": "c09626620@mydit.ie",
+    "url": "http://ie.linkedin.com/pub/david-conroy/58/259/238"
   },
-  "homepage": "http://www.openshift.com/",
+  "homepage": "http://daveconroy-dungeongame.rhcloud.com/",
   "repository": {
     "type": "git",
-    "url": "https://gitub.com/openshift/origin-server"
+    "url": "https://github.com/DaveConroy"
   },
 
   "engines": {
@@ -25,8 +27,10 @@
   },
 
   "dependencies": {
-         "socket.io" : "0.9.16",
-		 "express": "3.x"
+    "socket.io" : "0.9.16",
+  "node-uuid": "~1.4.1",
+  "validator": "3.5.1",
+    "express": "3.x"
   },
   "devDependencies": {},
   "bundleDependencies": [],

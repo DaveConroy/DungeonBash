@@ -1,3 +1,7 @@
+<!--Dungeon Bash  -->
+<!--Author: David Conroy  -->
+<!--Student Number: C09626620  -->
+<!--Email: c09626620@mydit.ie  -->
 <html>
     <head>
         <meta charset="utf-8">
@@ -6,22 +10,28 @@
         <meta name="apple-mobile-web-app-capable" content="yes"> 
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <title>Dungeon Bash</title>
-         <script src="lib/enchant.js"></script>
+        <script src="lib/enchant.js"></script>
+        <script src='lib/ui.enchant.js'></script>
+        <link href="css/styles.css" rel="stylesheet" type="text/css">
         <script src="/socket.io/socket.io.js"></script>
-		<script type="text/javascript" src="/js/main.js"></script>
+        <script type="text/javascript" src="/js/main.js"></script>
         <style type="text/css">
             body {
                 margin: 0;
             }
         </style>
     </head>
-    <body>
-        <header>
-    <!--<body onload=onLoadHandler()>-->
-            <input type="text" id="message_input"/>
-            <button id="send" onclick="sendMessage()">send</button>
-            <div id="chatlog"></div>
-            <!--<div style="position:fixed; width:100%; height:70px; background-color:yellow; padding:5px; bottom:0px; ">testcontent </div>-->
-        </header>
+    <body style="background-color:#DDDDEE;">
+            <div id="buttons">
+                <div style="position:fixed; width:100%; height:40px; padding:5px; bottom:0px; ">
+                    <input type="text" maxlength="12" placeholder="Enter Username" id="username"/>
+                    <button id="create" onclick="sendUsername()">Create World</button>
+                    <input type="number" placeholder="Enter RoomID" id="roomName"/>
+                    <button id="join" onclick="sendRoomName()">Join Game</button>
+                    <input type="textarea" placeholder="Enter a message" id="message"/>
+                    <button id="chat" onclick="sendMessage()">Send</button>
+<!--                    <div class="banner" id="gameManager"></div>-->
+                </div>
+            </div>
     </body>
 </html>
